@@ -1,10 +1,9 @@
 
-
-const Header = () => {
+const LandingPage = () => {
     return (
         <section>
         </section>
     )
 }
 
-export default Header
+export default LandingPage
