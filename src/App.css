@@ -99,3 +99,7 @@ ul.bottomNav {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.articlesTitle{
+  text-decoration: none;
+}

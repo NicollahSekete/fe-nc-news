@@ -5,10 +5,8 @@ import Article from './components/Article';
 import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from "react"
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <div className="App">

@@ -7,6 +7,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
 import { useParams } from "react-router-dom";
 import { getArticle } from "../api"
+import { format, parseISO } from 'date-fns'
 
 const Article = (articleId) => {
 
@@ -53,7 +54,8 @@ const Article = (articleId) => {
                         }}>
                             <CardContent>
                                 <Chip
-                                    icon={<CalendarMonthIcon />} label={article.created_at} />
+                                    icon={<CalendarMonthIcon />} label={format(
+                                        parseISO(article.created_at), 'dd/mm/yyyy HH:mm:ss')} />
                                 <Chip
 
                                     icon={<PersonIcon />} label={article.author} />
