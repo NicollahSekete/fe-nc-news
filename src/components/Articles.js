@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
+import { Link } from "react-router-dom";
 
 import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 
@@ -13,6 +14,7 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
 
+
     useEffect(() => {
         setIsLoading(true)
         getArticles().then((articleData) => {
@@ -20,7 +22,6 @@ const Articles = () => {
             setIsLoading(false)
         })
     }, [])
-
 
     return (
         <Container>
@@ -74,10 +75,18 @@ const Articles = () => {
                                     <Typography className="ArticlesBody"
                                         variant="body2" color="">
                                         {article.body}
-
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
+                                    <Button size="small"
+                                        variant="outlined"
+
+                                    >
+                                        <Link to={`/Article/${article.article_id}`}
+
+                                        >Read More</Link>
+                                    </Button>
+
                                     <Button disabled size="small">
                                         <CommentIcon /> {article.comment_count}
                                     </Button>
