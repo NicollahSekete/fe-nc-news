@@ -5,6 +5,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
+import { Link } from "react-router-dom";
+import { format, parseISO } from 'date-fns'
 
 import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 
@@ -13,6 +15,7 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
 
+
     useEffect(() => {
         setIsLoading(true)
         getArticles().then((articleData) => {
@@ -20,7 +23,6 @@ const Articles = () => {
             setIsLoading(false)
         })
     }, [])
-
 
     return (
         <Container>
@@ -54,7 +56,8 @@ const Articles = () => {
 
                                 <CardContent>
                                     <Chip
-                                        icon={<CalendarMonthIcon />} label={article.created_at} />
+                                        icon={<CalendarMonthIcon />} label={format(
+                                            parseISO(article.created_at), 'dd/mm/yyyy')} />
                                     <Chip
 
                                         icon={<PersonIcon />} label={article.author} />
@@ -68,13 +71,19 @@ const Articles = () => {
                                     title={article.title}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        {article.title}
+                                    <Typography gutterBottom variant="h6" component="div" >
+                                        <Link
+                                            className="articlesTitle"
+                                            to={`/Article/${article.article_id}`}
+                                        >
+                                            {article.title}
+                                        </Link>
+
                                     </Typography>
+
                                     <Typography className="ArticlesBody"
                                         variant="body2" color="">
                                         {article.body}
-
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
