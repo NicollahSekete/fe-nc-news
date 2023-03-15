@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { IconButton, Tooltip, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Alert, IconButton, Tooltip, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
 import { useParams } from "react-router-dom";
-import { getArticle } from "../api"
+import { getArticle, patchArticle } from "../api"
 import { format, parseISO } from 'date-fns'
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,11 @@ const Article = (articleId) => {
 
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [userVote, setUserVote] = useState(0)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false);
+
+
     let { article_id } = useParams();
 
     useEffect(() => {
@@ -25,10 +30,27 @@ const Article = (articleId) => {
 
     }, [articleId])
 
+
+    const upVote = () => {
+        setUserVote(1)
+        patchArticle(article_id, 1).then((article) => {
+            setSuccess(true)
+        }).catch((error) => {
+            setError(true)
+        })
+    }
+
+
     return (
         <Container
             sx={{ justifyContent: "center" }}
         >
+            {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Thanks for your vote!</Alert>}
+            {error &&
+                <Alert severity="error" onClose={() => setError(param => !param)}>There was an issue with your vote, please try again later</Alert>
+            }
+
+
 
             {isLoading ? (
                 <Box
@@ -36,6 +58,7 @@ const Article = (articleId) => {
                     <span className="loader"></span>
                 </Box>
             ) : (
+
 
                 <Grid
                     container
@@ -75,7 +98,6 @@ const Article = (articleId) => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-
                                 <Tooltip title="view Comments">
                                     <IconButton color="primary" aria-label="view comments">
                                         <Link
@@ -86,8 +108,8 @@ const Article = (articleId) => {
                                         </Link>
                                     </IconButton>
                                 </Tooltip>
-                                <Button size="small">
-                                    <FavoriteIcon /> {article.votes}
+                                <Button size="small" onClick={upVote} disabled={userVote !== 0}>
+                                    <FavoriteIcon /> {article.votes + userVote}
                                 </Button>
                                 <Button size="small">
                                     <TagIcon /> {article.topic}
