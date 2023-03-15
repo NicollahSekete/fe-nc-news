@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { IconButton, Tooltip, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Alert, IconButton, Tooltip, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -15,6 +15,9 @@ const Article = (articleId) => {
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [userVote, setUserVote] = useState(0)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false);
+
 
     let { article_id } = useParams();
 
@@ -31,10 +34,9 @@ const Article = (articleId) => {
     const upVote = () => {
         setUserVote(1)
         patchArticle(article_id, 1).then((article) => {
-
+            setSuccess(true)
         }).catch((error) => {
-            console.log(error)
-
+            setError(true)
         })
     }
 
@@ -43,6 +45,12 @@ const Article = (articleId) => {
         <Container
             sx={{ justifyContent: "center" }}
         >
+            {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Thanks for your vote!</Alert>}
+            {error &&
+                <Alert severity="error" onClose={() => setError(param => !param)}>There was an issue with your vote, please try again later</Alert>
+            }
+
+
 
             {isLoading ? (
                 <Box
@@ -50,6 +58,7 @@ const Article = (articleId) => {
                     <span className="loader"></span>
                 </Box>
             ) : (
+
 
                 <Grid
                     container
@@ -89,7 +98,6 @@ const Article = (articleId) => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-
                                 <Tooltip title="view Comments">
                                     <IconButton color="primary" aria-label="view comments">
                                         <Link
