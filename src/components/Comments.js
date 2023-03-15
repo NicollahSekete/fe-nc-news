@@ -17,11 +17,11 @@ const Comments = () => {
 
     const [openDelete, setOpenDelete] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
+
     const [addCommentArticleId, setAddCommentArticleId] = useState(null)
 
     const handleDeleteOpen = () => setOpenDelete(true);
     const handleDeleteClose = () => setOpenDelete(false);
-
 
     const handleAddClose = () => setOpenAdd(false);
 

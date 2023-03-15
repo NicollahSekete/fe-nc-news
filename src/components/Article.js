@@ -76,8 +76,8 @@ const Article = (articleId) => {
                             </CardContent>
                             <CardActions>
 
-                                <Tooltip title="Add Comment">
-                                    <IconButton color="primary" aria-label="add a new comment">
+                                <Tooltip title="view Comments">
+                                    <IconButton color="primary" aria-label="view comments">
                                         <Link
                                             className="articlesTitle"
                                             to={`/Comments/${article.article_id}`}

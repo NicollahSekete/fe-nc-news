@@ -1,4 +1,4 @@
-import { Link, Modal, Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Modal, Box, Typography } from '@mui/material';
 
 
 const DeleteCommentModal = ({handleDeleteClose, openDelete}) => {
