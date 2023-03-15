@@ -15,7 +15,6 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
 
-
     useEffect(() => {
         setIsLoading(true)
         getArticles().then((articleData) => {
@@ -89,7 +88,7 @@ const Articles = () => {
                                     <Button disabled size="small">
                                         <CommentIcon /> {article.comment_count}
                                     </Button>
-                                    <Button disabled size="small">
+                                    <Button disabled  size="small">
                                         <FavoriteIcon /> {article.votes}
                                     </Button>
                                     <Button disabled size="small">

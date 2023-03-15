@@ -6,7 +6,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
 import { useParams } from "react-router-dom";
-import { getArticle } from "../api"
+import { getArticle, patchArticle } from "../api"
 import { format, parseISO } from 'date-fns'
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,8 @@ const Article = (articleId) => {
 
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [userVote, setUserVote] = useState(0)
+
     let { article_id } = useParams();
 
     useEffect(() => {
@@ -24,6 +26,18 @@ const Article = (articleId) => {
         })
 
     }, [articleId])
+
+
+    const upVote = () => {
+        setUserVote(1)
+        patchArticle(article_id, 1).then((article) => {
+
+        }).catch((error) => {
+            console.log(error)
+
+        })
+    }
+
 
     return (
         <Container
@@ -86,8 +100,8 @@ const Article = (articleId) => {
                                         </Link>
                                     </IconButton>
                                 </Tooltip>
-                                <Button size="small">
-                                    <FavoriteIcon /> {article.votes}
+                                <Button size="small" onClick={upVote} disabled={userVote !== 0}>
+                                    <FavoriteIcon /> {article.votes + userVote}
                                 </Button>
                                 <Button size="small">
                                     <TagIcon /> {article.topic}
