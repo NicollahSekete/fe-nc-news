@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { IconButton, Tooltip, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -8,6 +8,7 @@ import TagIcon from '@mui/icons-material/Tag';
 import { useParams } from "react-router-dom";
 import { getArticle } from "../api"
 import { format, parseISO } from 'date-fns'
+import { Link } from "react-router-dom";
 
 const Article = (articleId) => {
 
@@ -74,9 +75,17 @@ const Article = (articleId) => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">
-                                    <CommentIcon /> {article.comment_count}
-                                </Button>
+
+                                <Tooltip title="view Comments">
+                                    <IconButton color="primary" aria-label="view comments">
+                                        <Link
+                                            className="articlesTitle"
+                                            to={`/Comments/${article.article_id}`}
+                                        >
+                                            <CommentIcon /> {article.comment_count}
+                                        </Link>
+                                    </IconButton>
+                                </Tooltip>
                                 <Button size="small">
                                     <FavoriteIcon /> {article.votes}
                                 </Button>
@@ -87,13 +96,7 @@ const Article = (articleId) => {
                         </Card>
                     </Grid>
                 </Grid>
-
-
-
-
             )}
-
-
         </Container >
     )
 }

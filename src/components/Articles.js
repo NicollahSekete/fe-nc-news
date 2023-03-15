@@ -78,7 +78,6 @@ const Articles = () => {
                                         >
                                             {article.title}
                                         </Link>
-
                                     </Typography>
 
                                     <Typography className="ArticlesBody"
