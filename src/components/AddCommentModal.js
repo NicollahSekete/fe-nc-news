@@ -85,10 +85,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
                 </form>
             </Box>
         </Modal>
-
-
     )
-
 }
 
 export default AddCommentModal
