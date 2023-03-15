@@ -4,8 +4,8 @@ const ncNewsApi = axios.create({
     baseURL: 'https://back-end-news-project.onrender.com',
 })
 
-export const getArticles = () => {
-    return ncNewsApi.get('/api/articles').then(({ data }) => {
+export const getArticles = (topic) => {
+    return ncNewsApi.get('/api/articles', { params: {  topic } }).then(({ data }) => {
         return data.articles
     })
 }
@@ -23,7 +23,13 @@ export const getComments = (article_id) => {
 }
 
 export const patchArticle = (article_id, votes) => {
-    return ncNewsApi.patch(`/api/articles/${article_id}`, {inc_votes: votes}).then(({ data }) => {
+    return ncNewsApi.patch(`/api/articles/${article_id}`, { inc_votes: votes }).then(({ data }) => {
         return data.article
+    })
+}
+
+export const getTopics = () => {
+    return ncNewsApi.get('/api/topics').then(({ data }) => {
+        return data.topics
     })
 }

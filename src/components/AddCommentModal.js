@@ -29,10 +29,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
                 </Typography>
             </Box>
         </Modal>
-
-
     )
-
 }
 
 export default AddCommentModal
