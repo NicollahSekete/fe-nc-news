@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { Link, Modal, Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
