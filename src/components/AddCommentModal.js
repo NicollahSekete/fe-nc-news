@@ -1,7 +1,6 @@
-import { Modal, IconButton, Box, Grid, FormControl, TextField, Stack } from '@mui/material';
+import { Modal, Alert, Button, Box, Grid, FormControl, TextField } from '@mui/material';
 import { useState, useContext } from "react"
 import { UserContext } from '../contexts/User';
-import CancelIcon from '@mui/icons-material/Cancel';
 import SendIcon from '@mui/icons-material/Send';
 import { postComments } from "../api"
 
@@ -9,7 +8,10 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
 
     const { user } = useContext(UserContext)
 
-    const [comment, setComment] = useState(null)
+    const [comment, setComment] = useState('')
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
 
     const style = {
         position: 'absolute',
@@ -25,21 +27,19 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        
         if (comment) {
             postComments(addCommentArticleId, user.username, comment).then((comment) => {
-                console.log(comment)
+                setSuccess(true)
+                setComment('')
             }).catch((error) => {
-                console.log(error)
+                setErrorMessage('Something went wrong, try again later')
+                setError(true)
             })
+        } else {
+            setErrorMessage('Comment is required')
+            setError(true)
         }
-
-
     }
-
-
-
-
 
     return (
         <Modal
@@ -49,38 +49,40 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
+                {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Comment posted!</Alert>}
+                {error &&
+                    <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
+                }
                 <h3>Add a comment</h3>
                 <form className='CommentForm' onSubmit={submitHandler}>
                     <Box>
                         <Grid container spacing={{ xs: 12, md: 12 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                            <Grid item xs={12} sm={12} md={12}>
+                            <Grid item xs={6} sm={6} md={6}>
                                 <FormControl>
                                     <TextField id="outlined-basic" label="Username" variant="outlined" disabled defaultValue={user.username} />
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={12}>
+                            <Grid item xs={6} sm={6} md={6}>
                                 <FormControl>
                                     <TextField
-                                        required
+                                        error={error === true}
                                         id="outlined-multiline-static"
                                         label="Comment"
                                         multiline
-                                        rows={4}
-                                        defaultValue={comment}
+                                        maxRows={4}
+                                        value={comment}
                                         onChange={(event) => setComment(event.target.value)}
                                     />
                                 </FormControl>
                             </Grid>
-
+                            <Grid item xs={12} sm={12} md={12} >
+                                <FormControl>
+                                    <Button variant="contained" type='submit'>
+                                        <SendIcon /> Send
+                                    </Button>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton variant="outlined" >
-                                <CancelIcon />  Delete
-                            </IconButton>
-                            <IconButton variant="contained" type='submit'>
-                                <SendIcon /> Send
-                            </IconButton>
-                        </Stack>
                     </Box>
                 </form>
             </Box>

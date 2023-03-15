@@ -23,12 +23,17 @@ const Comments = () => {
     const handleDeleteOpen = () => setOpenDelete(true);
     const handleDeleteClose = () => setOpenDelete(false);
 
-    const handleAddClose = () => setOpenAdd(false);
+    // const handleAddClose = () => setOpenAdd(false);
+
+    const handleAddClose = (id) => {
+     
+        setOpenAdd(false)
+    }
+
 
     const handleAddOpen = (id) => {
         setAddCommentArticleId(id)
         setOpenAdd(true)
-
     }
 
     let { article_id } = useParams();
