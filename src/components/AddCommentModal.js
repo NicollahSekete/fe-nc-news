@@ -12,6 +12,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
+    const [loadingButton, setLoadingButton] = useState(false);
 
     const style = {
         position: 'absolute',
@@ -27,18 +28,22 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
 
     const submitHandler = (event) => {
         event.preventDefault()
+        setLoadingButton(true)
         if (comment) {
             postComments(addCommentArticleId, user.username, comment).then((comment) => {
                 setSuccess(true)
                 setComment('')
                 setRefreshCommentsOnAdd(true)
+                setLoadingButton(false)
             }).catch((error) => {
                 setErrorMessage('Something went wrong, try again later')
                 setError(true)
+                setLoadingButton(false)
             })
         } else {
             setErrorMessage('Comment is required')
             setError(true)
+            setLoadingButton(false)
         }
     }
 
@@ -78,7 +83,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} >
                                 <FormControl>
-                                    <Button variant="contained" type='submit'>
+                                    <Button variant="contained" type='submit' disabled={loadingButton}>
                                         <SendIcon /> Send
                                     </Button>
                                 </FormControl>
