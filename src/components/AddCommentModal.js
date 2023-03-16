@@ -4,7 +4,7 @@ import { UserContext } from '../contexts/User';
 import SendIcon from '@mui/icons-material/Send';
 import { postComments } from "../api"
 
-const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
+const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefreshCommentsOnAdd }) => {
 
     const { user } = useContext(UserContext)
 
@@ -31,6 +31,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
             postComments(addCommentArticleId, user.username, comment).then((comment) => {
                 setSuccess(true)
                 setComment('')
+                setRefreshCommentsOnAdd(true)
             }).catch((error) => {
                 setErrorMessage('Something went wrong, try again later')
                 setError(true)

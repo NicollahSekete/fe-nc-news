@@ -16,11 +16,10 @@ import { format, parseISO } from 'date-fns'
 const Comments = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [comments, setComments] = useState([])
-
     const [openDelete, setOpenDelete] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
-
     const [addCommentArticleId, setAddCommentArticleId] = useState(null)
+    const [refreshCommentsOnAdd, setRefreshCommentsOnAdd] = useState(false);
 
     const handleDeleteOpen = () => setOpenDelete(true);
     const handleDeleteClose = () => setOpenDelete(false);
@@ -40,7 +39,7 @@ const Comments = () => {
             setComments(data)
             setIsLoading(false)
         })
-    }, [article_id])
+    }, [article_id, refreshCommentsOnAdd])
 
 
     return (
@@ -134,7 +133,7 @@ const Comments = () => {
             <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} />
 
 
-            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} />
+            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} />
         </Container >
     )
 
