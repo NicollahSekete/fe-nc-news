@@ -57,7 +57,7 @@ const Topics = () => {
                                     <Typography gutterBottom variant="h6" component="div" >
                                         <Link
                                             className="topicsTitle"
-                                            to={`/Articles/${topic.slug}`}
+                                            to={`/Articles?topic=${topic.slug}`}
                                         >
                                             {topic.slug}
                                         </Link>
