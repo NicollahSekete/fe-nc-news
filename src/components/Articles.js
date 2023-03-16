@@ -19,10 +19,6 @@ const Articles = () => {
     const [sortBy, setSortBy] = useState('');
     const [checked, setChecked] = useState(true);
     const [height, setHeight] = useState('300');
-    // const [currentOrder, setCurrentOrder] = useState('')
-    // const [currentTopics, setCurrentTopics] = useState('');
-    // const [currentSortBy, setCurrentSortBy] = useState('');
-    const [reset, setReset] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
 
 
@@ -64,7 +60,6 @@ const Articles = () => {
         newSearchParams.delete('order')
         newSearchParams.delete('sort_by')
         setSearchParams(newSearchParams)
-        setReset(true)
     }
 
     return (
@@ -97,9 +92,6 @@ const Articles = () => {
                                                 label="Topic"
                                                 onChange={(event) => {
                                                     setTopic(event.target.value)
-                                                    // const newSearchTopicParams = new URLSearchParams(searchTopicParams)
-                                                    // newSearchTopicParams.set('topic', event.target.value)
-                                                    // setSearchTopicParams(newSearchTopicParams)
                                                 }}
                                             >
                                                 <MenuItem value={'coding'}>coding</MenuItem>
@@ -120,10 +112,6 @@ const Articles = () => {
                                                 label="Order"
                                                 onChange={(event) => {
                                                     setOrder(event.target.value)
-
-                                                    // const newSearchOrderParams = new URLSearchParams(searchOrderParams)
-                                                    // newSearchOrderParams.set('order', event.target.value)
-                                                    // setSearchOrderParams(newSearchOrderParams)
                                                 }}
                                             >
                                                 <MenuItem value={'asc'}>asc</MenuItem>
@@ -142,12 +130,6 @@ const Articles = () => {
                                                 label="Sort By"
                                                 onChange={(event) => {
                                                     setSortBy(event.target.value)
-
-                                                    // const newSearchSortByParams = new URLSearchParams(searchSortByParams)
-
-                                                    // newSearchSortByParams.set('sort_by', event.target.value)
-
-                                                    // setSortByParams(newSearchSortByParams)
                                                 }}
                                             >
                                                 <MenuItem value={'title'}>Article Title</MenuItem>
