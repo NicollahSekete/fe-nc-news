@@ -19,7 +19,7 @@ function App() {
         <Route path="/Article/:article_id" element={<Article />} />
         <Route path="/Comments/:article_id" element={<Comments />} />
         <Route path="/Topics" element={<Topics />} />
-        <Route path="/Articles/:topic" element={<Articles />} />
+        <Route path="/Articles?topic=:topic" element={<Articles />} />
       </Routes>
       <Footer />
     </div>
