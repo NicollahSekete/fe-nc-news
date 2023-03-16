@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage';
 import Topics from './components/Topics';
 import Comments from './components/Comments';
 import Footer from './components/Footer';
+import ErrorPage from './components/ErrorPage';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Comments/:article_id" element={<Comments />} />
         <Route path="/Topics" element={<Topics />} />
         <Route path="/Articles?topic=:topic" element={<Articles />} />
+        <Route path="/*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </div>
