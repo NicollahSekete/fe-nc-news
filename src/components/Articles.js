@@ -9,14 +9,22 @@ import { Link } from "react-router-dom";
 import { format, parseISO } from 'date-fns'
 import { useParams } from "react-router-dom";
 
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, CardHeader } from '@mui/material';
 
 
 const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
+
     let { topic } = useParams();
-  
+
+    const [order, setOrder] = useState('')
+    const [topics, setTopics] = useState('');
+    const [sortBy, setSortBy] = useState('');
+
+
+    const [expanded, setExpanded] = useState(false);
+
 
     useEffect(() => {
         setIsLoading(true)
@@ -28,81 +36,164 @@ const Articles = () => {
 
     return (
         <Container>
-            {isLoading ? (
-                <Box
-                >
-                    <span className="loader"></span>
-                </Box>
-            ) : (
-                <Grid
-                    container
-                    spacing={2}
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="flex-start"
-                >
-                    {articles.map((article, index) => (
-                        <Grid item xs={12} sm={3} md={4} key={index}
-                            sx={{
+            <form>
+                <Box sx={{
+                    flexGrow: 1,
+                    p: 2,
+                    marginTop: '3em',
+                    border: '2px solid',
+                    borderRadius: '25px'
 
-                                overflow: 'auto',
-                                mt: 10
-                            }}
-                        >
-                            <Card sx={{
-                                maxWidth: 800,
-                                marginBottom: '1em'
-                            }}
-                                className="articleCards"
-                            >
+                }} >
+                    <Grid container spacing={{ xs: 12, md: 12 }} columns={{ xs: 12, sm: 12, md: 12 }}>
+                        <Grid item xs={12} sm={12} md={4}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Topics</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={topics}
+                                    label="Topic"
+                                    onChange={(event) => { setTopics(event.target.value) }}
+                                >
+                                    <MenuItem value={'coding'}>coding</MenuItem>
+                                    <MenuItem value={'cooking'}>cooking</MenuItem>
+                                    <MenuItem value={'football'}>football</MenuItem>
+                                </Select>
+                            </FormControl>
 
-                                <CardContent>
-                                    <Chip
-                                        icon={<CalendarMonthIcon />} label={format(
-                                            parseISO(article.created_at), 'dd/mm/yyyy')} />
-                                    <Chip
-
-                                        icon={<PersonIcon />} label={article.author} />
-                                </CardContent>
-
-                                <CardMedia
-                                    sx={{
-                                        height: 200,
-                                    }}
-                                    image={article.article_img_url}
-                                    title={article.title}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h6" component="div" >
-                                        <Link
-                                            className="articlesTitle"
-                                            to={`/Article/${article.article_id}`}
-                                        >
-                                            {article.title}
-                                        </Link>
-                                    </Typography>
-
-                                    <Typography className="ArticlesBody"
-                                        variant="body2" color="">
-                                        {article.body}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button disabled size="small">
-                                        <CommentIcon /> {article.comment_count}
-                                    </Button>
-                                    <Button disabled size="small">
-                                        <FavoriteIcon /> {article.votes}
-                                    </Button>
-                                    <Button disabled size="small">
-                                        <TagIcon /> {article.topic}
-                                    </Button>
-                                </CardActions>
-                            </Card>
                         </Grid>
-                    ))}
-                </Grid>
-            )
+                        <Grid item xs={12} sm={12} md={4}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Order</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={order}
+                                    label="Order"
+                                    onChange={(event) => { setOrder(event.target.value) }}
+                                >
+                                    <MenuItem value={'asc'}>asc</MenuItem>
+                                    <MenuItem value={'desc'}>desc</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                        </Grid>
+                        <Grid item xs={12} sm={4} md={4}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Sort option</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={sortBy}
+                                    label="Sort By"
+                                    onChange={(event) => { setSortBy(event.target.value) }}
+                                >
+                                    <MenuItem value={'title'}>Article Title</MenuItem>
+                                    <MenuItem value={'topic'}>Topic</MenuItem>
+                                    <MenuItem value={'author'}>Article Author</MenuItem>
+                                    <MenuItem value={'article_id'}>Article Id</MenuItem>
+                                    <MenuItem value={'created_at'}>Date</MenuItem>
+                                    <MenuItem value={'votes'}>Votes</MenuItem>
+                                    <MenuItem value={'article_img_url'}>Image</MenuItem>
+                                    <MenuItem value={'comment_count'}>Comments</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={6} sm={6} md={6}>
+                            <FormControl fullWidth>
+                                <Button variant="outlined">Reset</Button>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6} sm={6} md={6}>
+                            <FormControl fullWidth>
+                                <Button variant="contained">Search</Button>
+                            </FormControl>
+                        </Grid>
+
+                    </Grid>
+                </Box>
+            </form>
+
+
+            {
+                isLoading ? (
+                    <Box
+                    >
+                        <span className="loader"></span>
+                    </Box>
+                ) : (
+
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                    >
+                        {articles.map((article, index) => (
+                            <Grid item xs={12} sm={3} md={4} key={index}
+                                sx={{
+
+                                    overflow: 'auto',
+                                    mt: 10
+                                }}
+                            >
+                                <Card sx={{
+                                    maxWidth: 800,
+                                    marginBottom: '1em'
+                                }}
+                                    className="articleCards"
+                                >
+
+                                    <CardContent>
+                                        <Chip
+                                            icon={<CalendarMonthIcon />} label={format(
+                                                parseISO(article.created_at), 'dd/mm/yyyy')} />
+                                        <Chip
+
+                                            icon={<PersonIcon />} label={article.author} />
+                                    </CardContent>
+
+                                    <CardMedia
+                                        sx={{
+                                            height: 200,
+                                        }}
+                                        image={article.article_img_url}
+                                        title={article.title}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h6" component="div" >
+                                            <Link
+                                                className="articlesTitle"
+                                                to={`/Article/${article.article_id}`}
+                                            >
+                                                {article.title}
+                                            </Link>
+                                        </Typography>
+
+                                        <Typography className="ArticlesBody"
+                                            variant="body2" color="">
+                                            {article.body}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button disabled size="small">
+                                            <CommentIcon /> {article.comment_count}
+                                        </Button>
+                                        <Button disabled size="small">
+                                            <FavoriteIcon /> {article.votes}
+                                        </Button>
+                                        <Button disabled size="small">
+                                            <TagIcon /> {article.topic}
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                )
             }
         </Container >
     )
