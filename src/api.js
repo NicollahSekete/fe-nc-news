@@ -39,3 +39,8 @@ export const getTopics = () => {
         return data.topics
     })
 }
+
+
+export const deleteComment = (comment_id) => {
+    return ncNewsApi.get(`/api/comments/${comment_id}`)
+}

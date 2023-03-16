@@ -1,5 +1,6 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { UserContext } from '../contexts/User';
 import { useParams } from "react-router-dom";
 import { Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
@@ -20,8 +21,17 @@ const Comments = () => {
     const [openAdd, setOpenAdd] = useState(false);
     const [addCommentArticleId, setAddCommentArticleId] = useState(null)
     const [refreshCommentsOnAdd, setRefreshCommentsOnAdd] = useState(false);
+    const [commentIdForDelete, setCommentIdForDelete] = useState('')
+    const [bodyForDelete, setBodyForDelete] = useState('')
 
-    const handleDeleteOpen = () => setOpenDelete(true);
+    const { user } = useContext(UserContext)
+
+    const handleDeleteOpen = (comment_id, body) => {
+        setBodyForDelete(body)
+        setCommentIdForDelete(comment_id)
+        setOpenDelete(true);
+    }
+
     const handleDeleteClose = () => setOpenDelete(false);
 
     const handleAddClose = () => setOpenAdd(false);
@@ -113,14 +123,23 @@ const Comments = () => {
                                         <FavoriteIcon /> {comment.votes}
                                     </Button>
 
+                                    {user.username != comment.author ? (<DeleteForeverIcon disabled />)
+                                        :
+                                        (<Tooltip title="delete Comment">
+                                            <IconButton color="primary" aria-label="delete comment"
 
-                                    <Tooltip title="delete Comment">
-                                        <IconButton color="primary" aria-label="delete comment"
-                                            onClick={handleDeleteOpen}
-                                        >
-                                            <DeleteForeverIcon color="error" />
-                                        </IconButton>
-                                    </Tooltip>
+                                                onClick={() => { handleDeleteOpen(comment.comment_id, comment.body) }}
+                                            >
+                                                <DeleteForeverIcon color="error" />
+                                            </IconButton>
+                                        </Tooltip>
+                                        )}
+
+
+
+
+
+
 
 
                                 </CardActions>
@@ -130,7 +149,7 @@ const Comments = () => {
                 </Grid>
             )
             }
-            <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} />
+            <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} bodyForDelete={bodyForDelete} commentIdForDelete={commentIdForDelete} />
 
 
             <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} />
