@@ -23,6 +23,10 @@ const Comments = () => {
     const [refreshCommentsOnAdd, setRefreshCommentsOnAdd] = useState(false);
     const [commentIdForDelete, setCommentIdForDelete] = useState('')
     const [bodyForDelete, setBodyForDelete] = useState('')
+    const [refreshCommentsOnDelete, setRefreshCommentsOnDelete] = useState(false);
+
+    const [loadingButtonAdd, setLoadingButtonAdd] = useState(false);
+    const [loadingButtonDelete, setLoadingButtonDelete] = useState(false);
 
     const { user } = useContext(UserContext)
 
@@ -30,13 +34,21 @@ const Comments = () => {
         setBodyForDelete(body)
         setCommentIdForDelete(comment_id)
         setOpenDelete(true);
+        setLoadingButtonDelete(false)
     }
 
-    const handleDeleteClose = () => setOpenDelete(false);
+    const handleDeleteClose = () => {
+        setLoadingButtonDelete(false)
+        setOpenDelete(false);
+    }
 
-    const handleAddClose = () => setOpenAdd(false);
+    const handleAddClose = () => {
+        setLoadingButtonAdd(false)
+        setOpenAdd(false);
+    }
 
     const handleAddOpen = (id) => {
+        setLoadingButtonAdd(false)
         setAddCommentArticleId(id)
         setOpenAdd(true)
     }
@@ -49,7 +61,7 @@ const Comments = () => {
             setComments(data)
             setIsLoading(false)
         })
-    }, [article_id, refreshCommentsOnAdd])
+    }, [article_id, refreshCommentsOnAdd, refreshCommentsOnDelete])
 
 
     return (
@@ -134,14 +146,6 @@ const Comments = () => {
                                             </IconButton>
                                         </Tooltip>
                                         )}
-
-
-
-
-
-
-
-
                                 </CardActions>
                             </Card>
                         </Grid>
@@ -149,10 +153,13 @@ const Comments = () => {
                 </Grid>
             )
             }
-            <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} bodyForDelete={bodyForDelete} commentIdForDelete={commentIdForDelete} />
+            <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} bodyForDelete={bodyForDelete} commentIdForDelete={commentIdForDelete} setRefreshCommentsOnDelete={setRefreshCommentsOnDelete}
+            setLoadingButtonDelete={setLoadingButtonDelete}
+            loadingButtonDelete={loadingButtonDelete}
+             />
 
 
-            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} />
+            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} setLoadingButtonAdd={setLoadingButtonAdd} loadingButtonAdd={loadingButtonAdd}/>
         </Container >
     )
 

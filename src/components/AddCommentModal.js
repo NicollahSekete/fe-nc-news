@@ -4,7 +4,7 @@ import { UserContext } from '../contexts/User';
 import SendIcon from '@mui/icons-material/Send';
 import { postComments } from "../api"
 
-const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefreshCommentsOnAdd }) => {
+const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefreshCommentsOnAdd, setLoadingButtonAdd, loadingButtonAdd }) => {
 
     const { user } = useContext(UserContext)
 
@@ -28,22 +28,23 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
 
     const submitHandler = (event) => {
         event.preventDefault()
-        setLoadingButton(true)
+        setLoadingButtonAdd(true)
         if (comment) {
             postComments(addCommentArticleId, user.username, comment).then((comment) => {
                 setSuccess(true)
                 setComment('')
                 setRefreshCommentsOnAdd(true)
-                setLoadingButton(false)
+                setLoadingButtonAdd(false)
             }).catch((error) => {
                 setErrorMessage('Something went wrong, try again later')
                 setError(true)
-                setLoadingButton(false)
+                console.log(error)
+                setLoadingButtonAdd(false)
             })
         } else {
             setErrorMessage('Comment is required')
             setError(true)
-            setLoadingButton(false)
+            setLoadingButtonAdd(false)
         }
     }
 
@@ -55,7 +56,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Comment posted!</Alert>}
+                {success  && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Comment posted!</Alert>}
                 {error &&
                     <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
                 }
@@ -83,7 +84,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} >
                                 <FormControl>
-                                    <Button variant="contained" type='submit' disabled={loadingButton}>
+                                    <Button variant="contained" type='submit' disabled={loadingButtonAdd}>
                                         <SendIcon /> Send
                                     </Button>
                                 </FormControl>

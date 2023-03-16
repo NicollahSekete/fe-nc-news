@@ -42,5 +42,5 @@ export const getTopics = () => {
 
 
 export const deleteComment = (comment_id) => {
-    return ncNewsApi.get(`/api/comments/${comment_id}`)
+    return ncNewsApi.delete(`/api/comments/${comment_id}`)
 }
