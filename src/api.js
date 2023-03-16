@@ -22,8 +22,14 @@ export const getComments = (article_id) => {
     })
 }
 
+export const postComments = (article_id, username, body) => {
+    return ncNewsApi.post(`/api/articles/${article_id}/comments`, { username, body }).then(({ data }) => {
+        return data.comment
+    })
+}
+
 export const patchArticle = (article_id, votes) => {
-    return ncNewsApi.patch(`/api/articles/${article_id}`, {inc_votes: votes}).then(({ data }) => {
+    return ncNewsApi.patch(`/api/articles/${article_id}`, { inc_votes: votes }).then(({ data }) => {
         return data.article
     })
 }
