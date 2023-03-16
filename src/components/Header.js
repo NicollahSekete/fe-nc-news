@@ -9,7 +9,7 @@ const Header = () => {
                 <ul className="topnav">
                     <li><Link className="activeNav" to='/'>Home</Link></li>
                     <li><Link to='/Articles'>Articles</Link></li>
-                    <li><Link to=''>Topics</Link></li>
+                    <li><Link to='/Topics'>Topics</Link></li>
                     <li className="right"><Link to=''><AccountCircleIcon /></Link></li>
                 </ul>
             </nav>

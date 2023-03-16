@@ -1,7 +1,19 @@
-import { Link, Modal, Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Modal, Alert, Button, Box, Grid, FormControl, TextField } from '@mui/material';
+import { useState, useContext } from "react"
+import { UserContext } from '../contexts/User';
+import SendIcon from '@mui/icons-material/Send';
+import { postComments } from "../api"
 
+const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefreshCommentsOnAdd }) => {
 
-const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
+    const { user } = useContext(UserContext)
+
+    const [comment, setComment] = useState('')
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
+    const [loadingButton, setLoadingButton] = useState(false);
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -13,6 +25,28 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
         boxShadow: 24,
         p: 4,
     };
+
+    const submitHandler = (event) => {
+        event.preventDefault()
+        setLoadingButton(true)
+        if (comment) {
+            postComments(addCommentArticleId, user.username, comment).then((comment) => {
+                setSuccess(true)
+                setComment('')
+                setRefreshCommentsOnAdd(true)
+                setLoadingButton(false)
+            }).catch((error) => {
+                setErrorMessage('Something went wrong, try again later')
+                setError(true)
+                setLoadingButton(false)
+            })
+        } else {
+            setErrorMessage('Comment is required')
+            setError(true)
+            setLoadingButton(false)
+        }
+    }
+
     return (
         <Modal
             open={openAdd}
@@ -21,18 +55,45 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId }) => {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Add Comment for article {addCommentArticleId}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Add form will go here
-                </Typography>
+                {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Comment posted!</Alert>}
+                {error &&
+                    <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
+                }
+                <h3>Add a comment</h3>
+                <form className='CommentForm' onSubmit={submitHandler}>
+                    <Box>
+                        <Grid container spacing={{ xs: 12, md: 12 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                            <Grid item xs={6} sm={6} md={6}>
+                                <FormControl>
+                                    <TextField id="outlined-basic" label="Username" variant="outlined" disabled defaultValue={user.username} />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={6}>
+                                <FormControl>
+                                    <TextField
+                                        error={error === true}
+                                        id="outlined-multiline-static"
+                                        label="Comment"
+                                        multiline
+                                        maxRows={4}
+                                        value={comment}
+                                        onChange={(event) => setComment(event.target.value)}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12} >
+                                <FormControl>
+                                    <Button variant="contained" type='submit' disabled={loadingButton}>
+                                        <SendIcon /> Send
+                                    </Button>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </form>
             </Box>
         </Modal>
-
-
     )
-
 }
 
 export default AddCommentModal

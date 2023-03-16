@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { Link, Modal, Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Tooltip, IconButton, Container, Box, Grid, Card, CardActions, CardContent, Button, Typography, Chip } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -11,14 +11,15 @@ import AddCommentModal from './AddCommentModal';
 import DeleteCommentModal from './DeleteCommentModal';
 import { getComments } from "../api"
 
+import { format, parseISO } from 'date-fns'
+
 const Comments = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [comments, setComments] = useState([])
-
     const [openDelete, setOpenDelete] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
-
     const [addCommentArticleId, setAddCommentArticleId] = useState(null)
+    const [refreshCommentsOnAdd, setRefreshCommentsOnAdd] = useState(false);
 
     const handleDeleteOpen = () => setOpenDelete(true);
     const handleDeleteClose = () => setOpenDelete(false);
@@ -28,7 +29,6 @@ const Comments = () => {
     const handleAddOpen = (id) => {
         setAddCommentArticleId(id)
         setOpenAdd(true)
-
     }
 
     let { article_id } = useParams();
@@ -39,7 +39,7 @@ const Comments = () => {
             setComments(data)
             setIsLoading(false)
         })
-    }, [article_id])
+    }, [article_id, refreshCommentsOnAdd])
 
 
     return (
@@ -90,7 +90,8 @@ const Comments = () => {
 
                                 <CardContent>
                                     <Chip
-                                        icon={<CalendarMonthIcon />} label={comment.created_at} />
+                                        icon={<CalendarMonthIcon />} label={format(
+                                            parseISO(comment.created_at), 'dd/mm/yyyy')} />
                                     <Chip
 
                                         icon={<PersonIcon />} label={comment.author} />
@@ -132,7 +133,7 @@ const Comments = () => {
             <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} />
 
 
-            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} />
+            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} />
         </Container >
     )
 
