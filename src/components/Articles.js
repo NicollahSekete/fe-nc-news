@@ -15,21 +15,20 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
     const [order, setOrder] = useState('')
-    const [topics, setTopics] = useState('');
+    const [topic, setTopic] = useState('');
     const [sortBy, setSortBy] = useState('');
     const [checked, setChecked] = useState(true);
     const [height, setHeight] = useState('300');
-    const [currentOrder, setCurrentOrder] = useState('')
-    const [currentTopics, setCurrentTopics] = useState('');
-    const [currentSortBy, setCurrentSortBy] = useState('');
+    // const [currentOrder, setCurrentOrder] = useState('')
+    // const [currentTopics, setCurrentTopics] = useState('');
+    // const [currentSortBy, setCurrentSortBy] = useState('');
     const [reset, setReset] = useState(false);
-    const [searchSortByParams, setSortByParams] = useSearchParams();
-    const [searchOrderParams, setSearchOrderParams] = useSearchParams();
-    const [searchTopicParams, setSearchTopicParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const sortTopic = searchSortByParams.get('topic')
-    const sortOrder = searchSortByParams.get('order')
-    const sortSortBy = searchSortByParams.get('sort_by')
+
+    const sortTopic = searchParams.get('topic')
+    const sortOrder = searchParams.get('order')
+    const sortSortBy = searchParams.get('sort_by')
 
     const handleChange = () => {
         setChecked((prev) => !prev);
@@ -43,20 +42,28 @@ const Articles = () => {
             setIsLoading(false)
         })
 
-    }, [currentTopics, currentOrder, currentSortBy])
+    }, [sortTopic, sortOrder, sortSortBy])
 
     const submitHandler = (event) => {
         event.preventDefault();
-        setCurrentTopics(topics)
-        setCurrentSortBy(sortBy)
-        setCurrentOrder(order)
+
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set('topic', topic)
+        newSearchParams.set('order', order)
+        newSearchParams.set('sort_by', sortBy)
+        setSearchParams(newSearchParams)
         setChecked((prev) => !prev);
     }
 
     const handleReset = () => {
-        setTopics('')
+        setTopic('')
         setSortBy('')
         setOrder('')
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.delete('topic')
+        newSearchParams.delete('order')
+        newSearchParams.delete('sort_by')
+        setSearchParams(newSearchParams)
         setReset(true)
     }
 
@@ -86,13 +93,13 @@ const Articles = () => {
 
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={topics}
+                                                value={topic}
                                                 label="Topic"
                                                 onChange={(event) => {
-                                                    setTopics(event.target.value)
-                                                    const newSearchTopicParams = new URLSearchParams(searchTopicParams)
-                                                    newSearchTopicParams.set('topic', event.target.value)
-                                                    setSearchTopicParams(newSearchTopicParams)
+                                                    setTopic(event.target.value)
+                                                    // const newSearchTopicParams = new URLSearchParams(searchTopicParams)
+                                                    // newSearchTopicParams.set('topic', event.target.value)
+                                                    // setSearchTopicParams(newSearchTopicParams)
                                                 }}
                                             >
                                                 <MenuItem value={'coding'}>coding</MenuItem>
@@ -114,9 +121,9 @@ const Articles = () => {
                                                 onChange={(event) => {
                                                     setOrder(event.target.value)
 
-                                                    const newSearchOrderParams = new URLSearchParams(searchOrderParams)
-                                                    newSearchOrderParams.set('order', event.target.value)
-                                                    setSearchOrderParams(newSearchOrderParams)
+                                                    // const newSearchOrderParams = new URLSearchParams(searchOrderParams)
+                                                    // newSearchOrderParams.set('order', event.target.value)
+                                                    // setSearchOrderParams(newSearchOrderParams)
                                                 }}
                                             >
                                                 <MenuItem value={'asc'}>asc</MenuItem>
@@ -136,11 +143,11 @@ const Articles = () => {
                                                 onChange={(event) => {
                                                     setSortBy(event.target.value)
 
-                                                    const newSearchSortByParams = new URLSearchParams(searchSortByParams)
+                                                    // const newSearchSortByParams = new URLSearchParams(searchSortByParams)
 
-                                                    newSearchSortByParams.set('sort_by', event.target.value)
+                                                    // newSearchSortByParams.set('sort_by', event.target.value)
 
-                                                    setSortByParams(newSearchSortByParams)
+                                                    // setSortByParams(newSearchSortByParams)
                                                 }}
                                             >
                                                 <MenuItem value={'title'}>Article Title</MenuItem>
