@@ -9,22 +9,19 @@ import { Link } from "react-router-dom";
 import { format, parseISO } from 'date-fns'
 import { useParams } from "react-router-dom";
 
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, CardHeader } from '@mui/material';
+import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
+
+
 
 
 const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [articles, setArticles] = useState([])
-
     let { topic } = useParams();
 
     const [order, setOrder] = useState('')
     const [topics, setTopics] = useState('');
     const [sortBy, setSortBy] = useState('');
-
-
-    const [expanded, setExpanded] = useState(false);
-
 
     useEffect(() => {
         setIsLoading(true)
@@ -50,6 +47,7 @@ const Articles = () => {
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Topics</InputLabel>
                                 <Select
+                                    disabled
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={topics}
@@ -67,6 +65,7 @@ const Articles = () => {
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Order</InputLabel>
                                 <Select
+                                    disabled
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={order}
@@ -77,12 +76,12 @@ const Articles = () => {
                                     <MenuItem value={'desc'}>desc</MenuItem>
                                 </Select>
                             </FormControl>
-
                         </Grid>
                         <Grid item xs={12} sm={4} md={4}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Sort option</InputLabel>
                                 <Select
+                                    disabled
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={sortBy}
@@ -103,12 +102,12 @@ const Articles = () => {
 
                         <Grid item xs={6} sm={6} md={6}>
                             <FormControl fullWidth>
-                                <Button variant="outlined">Reset</Button>
+                                <Button variant="outlined" disabled>Reset</Button>
                             </FormControl>
                         </Grid>
                         <Grid item xs={6} sm={6} md={6}>
                             <FormControl fullWidth>
-                                <Button variant="contained">Search</Button>
+                                <Button variant="contained" disabled>Search</Button>
                             </FormControl>
                         </Grid>
 
