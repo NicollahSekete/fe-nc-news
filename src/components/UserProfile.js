@@ -65,6 +65,7 @@ const UserProfile = () => {
                                                 >
                                                     <Card sx={{
                                                         maxWidth: 845,
+                                                        minWidth: 500,
                                                         marginBottom: '1em',
                                                         marginTop: '1em',
                                                         border: '3px solid #E63946',
@@ -72,10 +73,7 @@ const UserProfile = () => {
 
                                                     }}>
                                                         <CardContent>
-
-                                                            <Chip
-
-                                                                icon={<PersonIcon />} label={user.username} />
+                                                            <Chip icon={<PersonIcon />} label={user.username} />
                                                         </CardContent>
 
                                                         <img src={user.avatar_url}></img>
@@ -113,7 +111,7 @@ const UserProfile = () => {
 
             }
 
-        </Container>
+        </Container >
     )
 
 
