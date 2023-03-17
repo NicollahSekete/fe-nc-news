@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { format, parseISO } from 'date-fns'
 import { useParams, useSearchParams } from "react-router-dom";
 
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, Switch, Collapse, FormControlLabel } from '@mui/material';
+import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, Switch, Collapse, FormControlLabel, Alert } from '@mui/material';
 
 const Articles = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -19,6 +19,9 @@ const Articles = () => {
     const [sortBy, setSortBy] = useState('');
     const [checked, setChecked] = useState(true);
     const [height, setHeight] = useState('300');
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
+
     const [searchParams, setSearchParams] = useSearchParams();
 
 
@@ -36,6 +39,12 @@ const Articles = () => {
         getArticles(sortTopic, sortOrder, sortSortBy).then((articleData) => {
             setArticles(articleData)
             setIsLoading(false)
+        }).catch((error)=>{
+            if(error.response.status === 404){
+                setError(true)
+                setErrorMessage('Sorry we could not find what you were looking for. Please try search again.')
+            }
+            
         })
 
     }, [sortTopic, sortOrder, sortSortBy])
@@ -64,6 +73,9 @@ const Articles = () => {
 
     return (
         <Container>
+             {error &&
+                    <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
+                }
             <Box sx={{ height: height }}>
                 <FormControlLabel
                     control={<Switch checked={checked} onChange={handleChange} />}

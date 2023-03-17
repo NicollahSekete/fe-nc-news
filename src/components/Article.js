@@ -17,7 +17,8 @@ const Article = (articleId) => {
     const [userVote, setUserVote] = useState(0)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false);
-
+    const [errorFetch, setErrorFetch] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
 
     let { article_id } = useParams();
 
@@ -26,6 +27,8 @@ const Article = (articleId) => {
         getArticle(article_id).then((article) => {
             setArticle(article)
             setIsLoading(false)
+        }).catch((error) => {
+            setErrorFetch(true)
         })
 
     }, [articleId])
@@ -36,6 +39,7 @@ const Article = (articleId) => {
         patchArticle(article_id, 1).then((article) => {
             setSuccess(true)
         }).catch((error) => {
+            setErrorMessage('Sorry there was issue when attempting to vote, please try again later.')
             setError(true)
         })
     }
@@ -47,8 +51,14 @@ const Article = (articleId) => {
         >
             {success && <Alert severity="success" onClose={() => setSuccess(param => !param)}>Thanks for your vote!</Alert>}
             {error &&
-                <Alert severity="error" onClose={() => setError(param => !param)}>There was an issue with your vote, please try again later</Alert>
+                <Alert severity="error" onClose={() => setError(param => !param)}>{errorMessage}
+                </Alert>
             }
+            {errorFetch &&
+                <Alert severity="error" onClose={() => setError(param => !param)}>Sorry we could not find what you were looking for. Head back to main <Link to="/Articles">Articles</Link>
+                </Alert>
+            }
+
 
 
 
