@@ -1,21 +1,18 @@
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { Link } from "react-router-dom"
 
 const LandingPage = () => {
+   
     return (
-        <main className="landingPageMain">
-            <header>
-                <h1>
-                    The Newsies
-                </h1>
+        <Box className="landingPageMain">
 
-            </header>
-            <h3>Your favourite site for latest news</h3>
-            <Button size="large" variant="contained" 
-            ><Link to='/Articles'>Latest Articles</Link></Button>
+            <h2>You're number one source for news</h2>
+            <Button size="large" variant="contained"
+            >
+                <Link className='links' to='/Articles'>Latest Articles</Link>
+            </Button>
 
-           
-        </main>
+        </Box>
     )
 }
 

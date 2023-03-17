@@ -25,6 +25,12 @@ const Topics = () => {
 
     return (
         <Container>
+            <Typography variant="h4" component="h4" className="articlesTitle"
+                sx={{
+                    marginTop: '1em'
+                }}>
+                Topics
+            </Typography>
             {isLoading ? (
                 <Box
                 >

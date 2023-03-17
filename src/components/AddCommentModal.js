@@ -21,7 +21,8 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '3px solid #E63946',
+        borderRadius:'25px',
         boxShadow: 24,
         p: 4,
     };

@@ -43,7 +43,13 @@ const Comments = () => {
 
 
     return (
-        <Container>
+        <Container >
+            <Typography variant="h4" component="h4" className="articlesTitle"
+                sx={{
+                    marginTop: '1em'
+                }}>
+                Comments
+            </Typography>
             {isLoading ? (
                 <Box
                 >
@@ -61,19 +67,19 @@ const Comments = () => {
                     <Grid
                         item xs={12} sm={12} md={12}
                         sx={{
-
-
+                            marginTop: '2em'
                         }}
                     >
                         <Tooltip title="Add Comment">
-                            <IconButton color="primary" aria-label="add a new comment"
+                            <IconButton color="primary" aria-label="add a new comment" fontSize="large"
                                 onClick={() => handleAddOpen(article_id)}
                             >
-                                <AddCommentIcon size="large" />
+                                <AddCommentIcon fontSize="large" />
                             </IconButton>
                         </Tooltip>
                     </Grid>
                     {comments.map((comment, index) => (
+
                         <Grid item xs={12} sm={3} md={4} key={index}
                             sx={{
 
@@ -101,7 +107,7 @@ const Comments = () => {
                                     <Typography gutterBottom variant="h6" component="div">
                                         {comment.title}
                                     </Typography>
-                                    <Typography className="ArticlesBody"
+                                    <Typography className="commentsBody"
                                         variant="body2" color="">
                                         {comment.body}
 
