@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import Articles from './components/Articles';
-import Article from './components/Article';
+import SingleArticle from './components/SingleArticle';
 import LandingPage from './components/LandingPage';
 import Topics from './components/Topics';
 import Comments from './components/Comments';
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/Articles" element={<Articles />} />
-        <Route path="/Article/:article_id" element={<Article />} />
+        <Route path="/Article/:article_id" element={<SingleArticle />} />
         <Route path="/Comments/:article_id" element={<Comments />} />
         <Route path="/Topics" element={<Topics />} />
         <Route path="/Articles?topic=:topic" element={<Articles />} />

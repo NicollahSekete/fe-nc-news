@@ -58,10 +58,13 @@ const Comments = () => {
     useEffect(() => {
         setIsLoading(true)
         getComments(article_id).then((data) => {
+            console.log(data)
             setComments(data)
             setIsLoading(false)
         })
     }, [article_id, refreshCommentsOnAdd, refreshCommentsOnDelete])
+
+   
 
 
     return (
@@ -154,12 +157,12 @@ const Comments = () => {
             )
             }
             <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} bodyForDelete={bodyForDelete} commentIdForDelete={commentIdForDelete} setRefreshCommentsOnDelete={setRefreshCommentsOnDelete}
-            setLoadingButtonDelete={setLoadingButtonDelete}
-            loadingButtonDelete={loadingButtonDelete}
-             />
+                setLoadingButtonDelete={setLoadingButtonDelete}
+                loadingButtonDelete={loadingButtonDelete}
+            />
 
 
-            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} setLoadingButtonAdd={setLoadingButtonAdd} loadingButtonAdd={loadingButtonAdd}/>
+            <AddCommentModal addCommentArticleId={addCommentArticleId} handleAddClose={handleAddClose} openAdd={openAdd} setRefreshCommentsOnAdd={setRefreshCommentsOnAdd} setLoadingButtonAdd={setLoadingButtonAdd} loadingButtonAdd={loadingButtonAdd} />
         </Container >
     )
 

@@ -6,11 +6,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
 import { useParams } from "react-router-dom";
-import { getArticle, patchArticle } from "../api"
+import { getArticleById, patchArticle } from "../api"
 import { format, parseISO } from 'date-fns'
 import { Link } from "react-router-dom";
 
-const Article = (articleId) => {
+const SingleArticle = (articleId) => {
 
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -24,7 +24,7 @@ const Article = (articleId) => {
 
     useEffect(() => {
         setIsLoading(true)
-        getArticle(article_id).then((article) => {
+        getArticleById(article_id).then((article) => {
             setArticle(article)
             setIsLoading(false)
         }).catch((error) => {
@@ -133,4 +133,4 @@ const Article = (articleId) => {
     )
 }
 
-export default Article
+export default SingleArticle

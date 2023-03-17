@@ -22,9 +22,11 @@ const DeleteCommentModal = ({ handleDeleteClose, openDelete, bodyForDelete, comm
         p: 4,
     };
 
+
     const submitHandler = (event) => {
         event.preventDefault()
         setLoadingButtonDelete(true)
+        
         deleteComment(commentIdForDelete).then(() => {
             setSuccess(true)
             setRefreshCommentsOnDelete(true)
