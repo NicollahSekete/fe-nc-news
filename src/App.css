@@ -1,5 +1,30 @@
+/* colour template 
+red: #E63946
+light-green : #F1FAEE
+lightblue : #A8DADC
+deepblue: #457B9D
+denimblue: #1D3557
+*/
+
 .App {
   text-align: center;
+  /* background: rgb(255,137,61);
+  background: linear-gradient(4deg, rgba(255,137,61,1) 0%, rgba(255,255,255,1) 100%); */
+  /* 
+  background: rgb(230, 57, 70);
+  background: linear-gradient(
+    0deg,
+    rgba(230, 57, 70, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ); */
+
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(168, 218, 220, 1) 58%,
+    rgba(190, 47, 58, 1) 100%
+  );
 }
 
 .loader {
@@ -44,7 +69,7 @@ ul.topnav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #1d3557;
 }
 
 ul.topnav li {
@@ -60,7 +85,7 @@ ul.topnav li a {
 }
 
 ul.topnav li a:hover {
-  color: lightcoral;
+  color: #a8dadc;
 }
 
 ul.topnav li.right {
@@ -79,19 +104,18 @@ ul.bottomNav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #1d3557;
 }
 
 .articleCards {
-  border: 3px solid #436ea0;
+  border: 3px solid #e63946;
 }
 
 .landingPageMain {
-  background-image: url("https://images.unsplash.com/photo-1503847752244-32e931070a43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1395&q=80");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  height: 100vh;
+  /* background-image: url("https://images.unsplash.com/photo-1503847752244-32e931070a43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1395&q=80"); */
+  margin-top: 15em;
+
+  height: 90vh;
 }
 
 .ArticlesBody {
@@ -100,6 +124,32 @@ ul.bottomNav {
   overflow: hidden;
 }
 
-.articlesTitle{
+.commentsBody {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.commentsBody:hover {
+  text-overflow: unset;
+  white-space: initial;
+  overflow: visible;
+}
+
+.articlesTitle {
   text-decoration: none;
+  color: #457b9d;
+}
+.articlesTitle:hover {
+  text-decoration: none;
+  color: #a8dadc;
+}
+
+.links {
+  text-decoration: none;
+  color: white;
+}
+.links:hover {
+  text-decoration: none;
+  color: #a8dadc;
 }

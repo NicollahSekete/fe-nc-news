@@ -5,17 +5,22 @@ import SingleArticle from './components/SingleArticle';
 import LandingPage from './components/LandingPage';
 import Topics from './components/Topics';
 import Comments from './components/Comments';
+import UserProfile from './components/UserProfile';
 import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
 import { Route, Routes } from 'react-router-dom';
 
+
+
 function App() {
+ 
 
   return (
     <div className="App">
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/UserProfile/:username" element={<UserProfile />} />
         <Route path="/Articles" element={<Articles />} />
         <Route path="/Article/:article_id" element={<SingleArticle />} />
         <Route path="/Comments/:article_id" element={<Comments />} />

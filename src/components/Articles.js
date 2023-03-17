@@ -39,12 +39,12 @@ const Articles = () => {
         getArticles(sortTopic, sortOrder, sortSortBy).then((articleData) => {
             setArticles(articleData)
             setIsLoading(false)
-        }).catch((error)=>{
-            if(error.response.status === 404){
+        }).catch((error) => {
+            if (error.response.status === 404) {
                 setError(true)
                 setErrorMessage('Sorry we could not find what you were looking for. Please try search again.')
             }
-            
+
         })
 
     }, [sortTopic, sortOrder, sortSortBy])
@@ -73,10 +73,16 @@ const Articles = () => {
 
     return (
         <Container>
-             {error &&
-                    <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
-                }
-            <Box sx={{ height: height }}>
+            {error &&
+                <Alert severity="error" onClose={() => setError(param => !param)}><strong>error!</strong> {errorMessage} </Alert>
+            }
+            <Typography variant="h4" component="h4" className="articlesTitle"
+                sx={{
+                    marginTop: '1em'
+                }}>
+                Articles
+            </Typography>
+            <Box sx={{ height: height }}  className="searchBox">
                 <FormControlLabel
                     control={<Switch checked={checked} onChange={handleChange} />}
                     label="Show filters "
@@ -88,8 +94,8 @@ const Articles = () => {
                                 flexGrow: 1,
                                 p: 2,
                                 marginTop: '3em',
-                                border: '2px solid',
-                                borderRadius: '25px'
+                                border: '3px solid #E63946',
+                                borderRadius: '25px',
 
                             }} >
                                 <Grid container spacing={{ xs: 12, md: 12 }} columns={{ xs: 12, sm: 12, md: 12 }}>
@@ -207,9 +213,10 @@ const Articles = () => {
                                         <Chip
                                             icon={<CalendarMonthIcon />} label={format(
                                                 parseISO(article.created_at), 'dd/mm/yyyy')} />
-                                        <Chip
+                                        <Link className='articlesTitle' to={`/UserProfile/${article.author}`}>
+                                            <Chip icon={<PersonIcon />} label={article.author} />
+                                        </Link>
 
-                                            icon={<PersonIcon />} label={article.author} />
                                     </CardContent>
 
                                     <CardMedia
@@ -220,7 +227,7 @@ const Articles = () => {
                                         title={article.title}
                                     />
                                     <CardContent>
-                                        <Typography gutterBottom variant="h6" component="div" >
+                                        <Typography gutterBottom variant="h6" component="div" className="ArticlesBody" >
                                             <Link
                                                 className="articlesTitle"
                                                 to={`/Article/${article.article_id}`}
