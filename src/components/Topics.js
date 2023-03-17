@@ -1,14 +1,8 @@
 import { getTopics } from "../api"
 import { useEffect, useState } from "react"
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CommentIcon from '@mui/icons-material/Comment';
-import TagIcon from '@mui/icons-material/Tag';
 import { Link } from "react-router-dom";
-import { format, parseISO } from 'date-fns'
 
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip } from '@mui/material';
+import { Container, Box, Grid, Card, CardContent,  Typography } from '@mui/material';
 
 
 const Topics = () => {
@@ -48,7 +42,7 @@ const Topics = () => {
                         <Grid item xs={12} sm={3} md={4} key={index}
                             sx={{
 
-                              
+
                                 mt: 10
                             }}
                         >
@@ -67,7 +61,7 @@ const Topics = () => {
                                         >
                                             {topic.slug}
                                         </Link>
-                                       
+
                                     </Typography>
                                     <Typography className="topicsBody"
                                         variant="body2" color="">
