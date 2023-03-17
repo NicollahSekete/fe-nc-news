@@ -69,6 +69,7 @@ const Article = (articleId) => {
                     style={{ minHeight: '100vh' }}
                 >
 
+
                     <Grid item xs={3}>
                         <Card sx={{
                             maxWidth: 845,
@@ -80,9 +81,10 @@ const Article = (articleId) => {
                                 <Chip
                                     icon={<CalendarMonthIcon />} label={format(
                                         parseISO(article.created_at), 'dd/mm/yyyy HH:mm:ss')} />
-                                <Chip
+                                <Link className='articlesTitle' to={`/UserProfile/${article.author}`}>
+                                    <Chip icon={<PersonIcon />} label={article.author} />
+                                </Link>
 
-                                    icon={<PersonIcon />} label={article.author} />
                             </CardContent>
                             <CardMedia
                                 sx={{ height: '50vh' }}

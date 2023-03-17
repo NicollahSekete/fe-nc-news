@@ -10,6 +10,7 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import AddCommentModal from './AddCommentModal';
 import DeleteCommentModal from './DeleteCommentModal';
 import { getComments } from "../api"
+import { Link } from "react-router-dom";
 
 import { format, parseISO } from 'date-fns'
 
@@ -98,9 +99,11 @@ const Comments = () => {
                                     <Chip
                                         icon={<CalendarMonthIcon />} label={format(
                                             parseISO(comment.created_at), 'dd/mm/yyyy')} />
-                                    <Chip
 
-                                        icon={<PersonIcon />} label={comment.author} />
+
+                                    <Link className='articlesTitle' to={`/UserProfile/${comment.author}`}>
+                                        <Chip icon={<PersonIcon />} label={comment.author} />
+                                    </Link>
                                 </CardContent>
 
                                 <CardContent>

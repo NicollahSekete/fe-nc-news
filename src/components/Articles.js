@@ -201,9 +201,10 @@ const Articles = () => {
                                         <Chip
                                             icon={<CalendarMonthIcon />} label={format(
                                                 parseISO(article.created_at), 'dd/mm/yyyy')} />
-                                        <Chip
+                                        <Link className='articlesTitle' to={`/UserProfile/${article.author}`}>
+                                            <Chip icon={<PersonIcon />} label={article.author} />
+                                        </Link>
 
-                                            icon={<PersonIcon />} label={article.author} />
                                     </CardContent>
 
                                     <CardMedia
