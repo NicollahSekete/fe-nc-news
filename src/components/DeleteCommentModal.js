@@ -3,7 +3,7 @@ import { useState } from "react"
 
 import { deleteComment } from "../api"
 
-const DeleteCommentModal = ({ handleDeleteClose, openDelete, bodyForDelete, commentIdForDelete, setRefreshCommentsOnDelete, loadingButtonDelete, setLoadingButtonDelete }) => {
+const DeleteCommentModal = ({ handleDeleteClose, openDelete, bodyForDelete, commentIdForDelete, setRefreshCommentsOnDelete, loadingButtonDelete, setLoadingButtonDelete, comments, setComments }) => {
 
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false);
@@ -26,15 +26,22 @@ const DeleteCommentModal = ({ handleDeleteClose, openDelete, bodyForDelete, comm
     const submitHandler = (event) => {
         event.preventDefault()
         setLoadingButtonDelete(true)
-        
+        setComments((previousState)=> {
+            const newState = previousState.filter((comments)=> {
+                return comments.comment_id !== commentIdForDelete
+            })
+            return newState;
+        })
+
         deleteComment(commentIdForDelete).then(() => {
             setSuccess(true)
+
             setRefreshCommentsOnDelete(true)
             setLoadingButtonDelete(true)
         }).catch((error) => {
             setErrorMessage('Something went wrong, try again later')
             setError(true)
-            console.log(error)
+            
             setLoadingButtonDelete(false)
         })
     }

@@ -58,7 +58,7 @@ const Comments = () => {
     useEffect(() => {
         setIsLoading(true)
         getComments(article_id).then((data) => {
-            console.log(data)
+            
             setComments(data)
             setIsLoading(false)
         })
@@ -159,6 +159,8 @@ const Comments = () => {
             <DeleteCommentModal handleDeleteClose={handleDeleteClose} openDelete={openDelete} bodyForDelete={bodyForDelete} commentIdForDelete={commentIdForDelete} setRefreshCommentsOnDelete={setRefreshCommentsOnDelete}
                 setLoadingButtonDelete={setLoadingButtonDelete}
                 loadingButtonDelete={loadingButtonDelete}
+                setComments={setComments}
+                comments={comments}
             />
 
 
