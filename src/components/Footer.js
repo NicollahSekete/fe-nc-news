@@ -1,5 +1,4 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Link } from "react-router-dom"
 
 const Footer = () => {
     return (

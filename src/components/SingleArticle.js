@@ -10,7 +10,7 @@ import { getArticleById, patchArticle } from "../api"
 import { format, parseISO } from 'date-fns'
 import { Link } from "react-router-dom";
 
-const SingleArticle = (articleId) => {
+const SingleArticle = () => {
 
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -31,7 +31,7 @@ const SingleArticle = (articleId) => {
             setErrorFetch(true)
         })
 
-    }, [articleId])
+    }, [article_id])
 
 
     const upVote = () => {

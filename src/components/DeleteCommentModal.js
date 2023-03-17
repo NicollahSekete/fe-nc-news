@@ -1,4 +1,4 @@
-import { Modal, Box, Typography, Alert, Button, Grid, FormControl, TextField } from '@mui/material';
+import { Modal, Box, Typography, Alert, Button, Grid, FormControl } from '@mui/material';
 import { useState } from "react"
 
 import { deleteComment } from "../api"

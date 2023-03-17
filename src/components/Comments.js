@@ -147,7 +147,7 @@ const Comments = () => {
                                         <FavoriteIcon /> {comment.votes}
                                     </Button>
 
-                                    {user.username != comment.author ? (<DeleteForeverIcon disabled />)
+                                    {user.username !== comment.author ? (<DeleteForeverIcon disabled />)
                                         :
                                         (<Tooltip title="delete Comment">
                                             <IconButton color="primary" aria-label="delete comment"

@@ -12,7 +12,7 @@ const AddCommentModal = ({ handleAddClose, openAdd, addCommentArticleId, setRefr
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
-    const [loadingButton, setLoadingButton] = useState(false);
+    
 
     const style = {
         position: 'absolute',

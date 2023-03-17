@@ -7,7 +7,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import TagIcon from '@mui/icons-material/Tag';
 import { Link } from "react-router-dom";
 import { format, parseISO } from 'date-fns'
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, Switch, Collapse, FormControlLabel, Alert } from '@mui/material';
 

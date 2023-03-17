@@ -4,12 +4,11 @@ import { getUsers } from "../api"
 import { useParams } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
 
-import { Container, Box, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Chip, MenuItem, FormControl, InputLabel, Select, Switch, Collapse, FormControlLabe, Avatar } from '@mui/material';
+import { Container, Box, Grid, Card, CardContent, Typography, Chip } from '@mui/material';
 
 const UserProfile = () => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const [user, setUser] = useState('')
     const [allUsers, setAllUsers] = useState('')
 
     let { username } = useParams();
@@ -76,7 +75,7 @@ const UserProfile = () => {
                                                             <Chip icon={<PersonIcon />} label={user.username} />
                                                         </CardContent>
 
-                                                        <img src={user.avatar_url}></img>
+                                                        <img src={user.avatar_url} alt={user.username}></img>
                                                         <CardContent>
                                                             <Typography gutterBottom variant="h5" component="div">
                                                                 {user.name}
